@@ -1,4 +1,7 @@
 import React from 'react';
+import Square from "../../Elements/Square";
+import Henry from "../../Elements/Henry";
+import Bottle from "../../Elements/Bottle";
 
 const GameBoard = () => {
   const styles = {
@@ -8,18 +11,14 @@ const GameBoard = () => {
       flexWrap: 'wrap',
       boxSizing: 'border-box',
       width: 'min-content',
-      height: 'auto'
+      height: 'auto',
+      margin: '0 auto',
     },
     row: {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-    },
-    square: {
-      width: '30px',
-      height: '30px',
-      border: '0.5px solid #000',
     },
     columnHeader: {
       display: 'flex',
@@ -49,21 +48,23 @@ for (let i = 0; i < 24; i++) {
   const row = [];
   for (let j = 0; j < 42; j++) {
     row.push(
-      <div key={`${i}-${j}`} className="square" style={styles.square}>
-      </div>
+      <Square key={`${i}-${j}`}>
+        { i === 2 && j === 2 ? <Henry/> : null }
+        { i === 5 && j === 4 ? <Bottle/> : null }
+      </Square>
     );
   }
   board.push(
-    <div key={i} className="row" style={styles.row}>
-      <div className="row-header" style={styles.rowHeader}>{`r${i + 1}`}</div>
-      {row}
+    <div key={i} className="row" style={ styles.row }>
+      <div className="row-header" style={ styles.rowHeader }>{`R${ i + 1 }`}</div>
+      { row }
     </div>
   );
 }
 const columnHeader = [];
-for (let j = 0; j < 42; j++) {
+for ( let j = 0; j < 42; j++ ) {
   columnHeader.push(
-    <div key={`c${j}`} className="column-header" style={styles.columnHeader}>{`c${j + 1}`}</div>
+    <div key={`c${ j }`} className="column-header" style={styles.columnHeader}>{`C${ j + 1 }`}</div>
   );
 }
 return (
