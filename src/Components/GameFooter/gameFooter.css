@@ -15,10 +15,6 @@
 .button-start {
     background-color: #5bfa1c;
     color: darkblue;
-    width: 120px;
-    height: 48px;
-    font-weight: bold;
-    cursor: pointer;
 }
 
 .legend-content-wrapper {

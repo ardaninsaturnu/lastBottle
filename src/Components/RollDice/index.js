@@ -10,12 +10,10 @@ function DiceRoller() {
   }
   
   return (
-    <div>
-      <button onClick={rollDice}>Zar At</button>
-      <p>
-        İlk zar: { dice.direction }<br />
-        İkinci zar: { dice.step }
-      </p>
+    <div className="dice-roller">
+      <div className="dice-content"> Direction <div className="dice-content-box">{ dice.direction }</div></div>
+      <div className="dice-content">Steps <div style={{padding:6,border:'2px black solid',width:24,height:24,display:"flex",justifyContent:'center',alignItems:'center'}}>{ dice.step }</div></div>
+      <button onClick={rollDice} className="button button-dice">Zar At</button>
     </div>
   );
 }
