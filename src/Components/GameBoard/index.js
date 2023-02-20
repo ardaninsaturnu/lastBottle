@@ -2,6 +2,7 @@ import React from 'react';
 import Square from "../../Elements/Square";
 import Henry from "../../Elements/Henry";
 import Bottle from "../../Elements/Bottle";
+import Gpgp from "../../Elements/Gpgp";
 
 const GameBoard = () => {
   const styles = {
@@ -44,32 +45,42 @@ const GameBoard = () => {
 };
 
 const board = [];
-for (let i = 0; i < 24; i++) {
+for ( let r = 1; r <= 24; r++ ) {
   const row = [];
-  for (let j = 0; j < 42; j++) {
+  for ( let c = 1; c <= 42; c++ ) {
     row.push(
-      <Square key={`${i}-${j}`}>
-        { i === 2 && j === 2 ? <Henry/> : null }
-        { i === 5 && j === 4 ? <Bottle/> : null }
+      <Square key={`${r}-${c}`}>
+        { r === 2 && c === 2 ? <Henry/> : null }
+        { r === 5 && c === 5 ? <Bottle/> : null }
+        { r === 12 && c === 12 ? <Gpgp/> : null }
+        { r === 11 && c === 12 ? <Gpgp/> : null }
+        { r === 13 && c === 12 ? <Gpgp/> : null }
+        { r === ( 11 ) && c === ( 12 - 1 ) ? <Gpgp/> : null }
+        { r === ( 12 ) && c === ( 12 - 1 ) ? <Gpgp/> : null }
+        { r === ( 13 ) && c === ( 12 - 1 ) ? <Gpgp/> : null }
+        { r === ( 11 ) && c === ( 13 ) ? <Gpgp/> : null }
+        { r === ( 12 ) && c === ( 13 ) ? <Gpgp/> : null }
+        { r === ( 13 ) && c === ( 13 ) ? <Gpgp/> : null }
       </Square>
     );
   }
   board.push(
-    <div key={i} className="row" style={ styles.row }>
-      <div className="row-header" style={ styles.rowHeader }>{`R${ i + 1 }`}</div>
+    <div key={ r } className="row" style={ styles.row }>
+      <div className="row-header" style={ styles.rowHeader }>{`R${ r }`}</div>
       { row }
     </div>
   );
 }
+
 const columnHeader = [];
 for ( let j = 0; j < 42; j++ ) {
   columnHeader.push(
-    <div key={`c${ j }`} className="column-header" style={styles.columnHeader}>{`C${ j + 1 }`}</div>
+    <div key={`c${j}`} className="column-header" style={styles.columnHeader}>{`C${j + 1}`}</div>
   );
 }
 return (
   <div className="board" style={styles.board}>
-    <div className="column-header" style={styles.columnHeader} />
+    <div className="column-header" style={styles.columnHeader}/>
     {columnHeader}
     {board}
   </div>

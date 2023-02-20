@@ -1,0 +1,32 @@
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1260px;
+    height: 720px;
+    border: 2px solid #333;
+}
+
+.board .square {
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid #333;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.board .square.black {
+    background-color: #333;
+    color: #fff;
+}
+
+.board .square.white {
+    background-color: #fff;
+    color: #333;
+}
+
+.board .square.header {
+    background-color: #eee;
+    color: #333;
+}
