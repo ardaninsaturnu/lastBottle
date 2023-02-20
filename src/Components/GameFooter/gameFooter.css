@@ -1,0 +1,52 @@
+.footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.legend-wrapper {
+    background-color: #ffffff;
+    padding: 8px;
+    width: 60%;
+    margin: 2rem 0;
+    display: flex;
+}
+
+.button-start {
+    background-color: #5bfa1c;
+    color: darkblue;
+    width: 120px;
+    height: 48px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.legend-content-wrapper {
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    width: 320px;
+}
+
+.legend-items-wrapper {
+    flex: 1;
+}
+
+.legend-direction-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.direction {
+    display: flex;
+    gap: 5px;
+    margin-right: 35px;
+}
+
+.direction .direction-capital {
+    font-weight: bold;
+}
