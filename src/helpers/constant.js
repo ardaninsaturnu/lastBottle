@@ -1,4 +1,4 @@
-export const directions = [
+export const constant = [
   {
     shorthand: 'N',
     direction: 'North'

@@ -1,6 +1,6 @@
 import user from '../../src/assets/img/player_icon.svg';
 import bottle from '../assets/img/bottle_icon@2x.png';
-import {directions} from "../constant/directions";
+import {constant} from "../helpers/constant";
 
 const Legend = () => {
   return(
@@ -21,7 +21,7 @@ const Legend = () => {
           </div>
         </div>
         <div className="legend-direction-wrapper">
-          { directions.map( direction => (
+          { constant.map(direction => (
             <div className="direction"><span className="direction-capital">{direction.shorthand}</span>{direction.direction}</div>
           ))}
         </div>
