@@ -2,8 +2,8 @@ const Gpp = () => {
   
   const styles = {
     element: {
-      width: '30px',
-      height: '30px',
+      width: '93px',
+      height: '93px',
       backgroundColor: 'rgb(242, 167, 167)',
       display: 'flex',
       justifyContent: 'center',

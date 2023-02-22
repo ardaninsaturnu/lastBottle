@@ -1,32 +1,40 @@
 .board {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    width: 1260px;
-    height: 720px;
-    border: 2px solid #333;
+    box-sizing: border-box;
+    width: min-content;
+    height: auto;
+    margin: 0 auto;
 }
 
-.board .square {
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.columnHeader, .row-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 30px;
     height: 30px;
-    box-sizing: border-box;
-    border: 1px solid #333;
-    text-align: center;
-    font-size: 16px;
     font-weight: bold;
+    border: 0.5px solid rgb(0 0 0 / 0%);
+    font-size: 8px;
 }
 
-.board .square.black {
-    background-color: #333;
-    color: #fff;
+.row-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+    font-size: 8px;
+    border: 0.5px solid rgb(0 0 0 / 0%);
 }
 
-.board .square.white {
-    background-color: #fff;
-    color: #333;
-}
-
-.board .square.header {
-    background-color: #eee;
-    color: #333;
-}
