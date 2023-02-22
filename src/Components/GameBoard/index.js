@@ -51,7 +51,7 @@ for ( let r = 1; r <= 24; r++ ) {
     row.push(
       <Square key={`${r}-${c}`}>
         { r === 2 && c === 2 ? <Henry/> : null }
-        { r === 5 && c === 5 ? <Bottle/> : null }
+        { r === 5 && c === 42 ? <Bottle/> : null }
         { r === 12 && c === 12 ? <Gpgp/> : null }
         { r === 11 && c === 12 ? <Gpgp/> : null }
         { r === 13 && c === 12 ? <Gpgp/> : null }
