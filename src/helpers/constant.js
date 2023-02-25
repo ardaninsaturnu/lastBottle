@@ -48,3 +48,14 @@ export const constant = [
     opposite: [ 8,3 ]
   }
 ]
+
+export const oppositeDirections = {
+  "north": "south",
+  "northeast": "southwest",
+  "east": "west",
+  "southeast": "northwest",
+  "south": "north",
+  "southwest": "northeast",
+  "west": "east",
+  "northwest": "southeast",
+};

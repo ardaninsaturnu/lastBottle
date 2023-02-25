@@ -4,7 +4,7 @@ import GameFooter from "../GameFooter";
 import {useState} from "react";
 
 const Layout = () => {
-  const [dice, setDice] = useState({direction: 0, step: 0});
+  const [dice, setDice] = useState({direction: 0, step: 0, route: []});
   
   return(
     <>

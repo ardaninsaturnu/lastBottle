@@ -1,11 +1,9 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useMemo, useState } from 'react';
 import Square from "../../Elements/Square";
 import Henry from "../../Elements/Henry";
 import Bottle from "../../Elements/Bottle";
 import Gpgp from "../../Elements/Gpgp";
 import './board.css';
-
-const directions = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"];
 
 const GameBoard = ({ dice }) => {
   const board = [];
@@ -17,8 +15,6 @@ const GameBoard = ({ dice }) => {
     if( dice ){
       const currentPlayerRow = prevPlayer === 'bottle' ? 'bottleRow' : 'henryRow';
       const currentPlayerColumn = prevPlayer === 'bottle' ? 'bottleColumn' : 'henryColumn';
-  
-      console.log(currentPlayerColumn,currentPlayerRow)
       
       setRowCount( prev => ({
         ...rowCount,
@@ -33,9 +29,7 @@ const GameBoard = ({ dice }) => {
       prevPlayer === 'bottle' ? setPrevPlayer('henry') : setPrevPlayer('bottle');
     }
     
-  },[dice])
-  
-  console.log( rowCount, columnCount, 'culha' )
+  },[dice,columnCount,prevPlayer,rowCount])
   
   for ( let r = 1; r <= 24; r++ ) {
     const row = [];

@@ -1,44 +1,22 @@
-import React, {useState} from "react";
-
-const oppositeDirections = {
-  "north": "south",
-  "northeast": "southwest",
-  "east": "west",
-  "southeast": "northwest",
-  "south": "north",
-  "southwest": "northeast",
-  "west": "east",
-  "northwest": "southeast",
-};
+import React from "react";
+import {oppositeDirections} from "../../helpers/constant";
 
 function DiceRoller({ dice, setDice }) {
-  const [ directions, setDirections ] = useState( [ "north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest" ]);
   
   function rollDice() {
     const diceDirection = Math.floor(Math.random() * 6) + 1;
     const diceStep = Math.floor(Math.random() * 6) + 1;
-    let directionState = directions;
-    
-    // Get the index of the first player's direction
-    const firstPlayerDirection = directions[diceDirection];
-
-// Remove the first player's direction and its opposite from the array
+    let routes = [ "north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest" ];
+    const firstPlayerDirection = routes[diceDirection];
     const forbiddenDirections = [firstPlayerDirection, oppositeDirections[firstPlayerDirection]];
-    directions.splice(diceDirection, 1);
-    for (const forbiddenDirection of forbiddenDirections) {
-      const index = directions.indexOf(forbiddenDirection);
-      if (index !== -1) {
-        directions.splice(index, 1);
-      }
+    
+    for (const forbiddenDirection of forbiddenDirections ) {
+      const index = routes.indexOf(forbiddenDirection);
+        routes.splice(index, 1);
     }
     
-    setDirections(directions)
-    
-    setDice({ ...dice, direction: diceDirection, step: diceStep, directions  });
-    setDice({ ...dice, direction: diceDirection, step: diceStep });
+    setDice({ ...dice, direction: diceDirection, step: diceStep, route: routes });
   }
-  
-  console.log('roll dice', dice)
   
   return (
     <div className="dice-roller">
