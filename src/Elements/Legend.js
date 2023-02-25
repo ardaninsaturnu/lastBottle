@@ -21,8 +21,8 @@ const Legend = () => {
           </div>
         </div>
         <div className="legend-direction-wrapper">
-          { constant.map(direction => (
-            <div className="direction"><span className="direction-capital">{direction.shorthand}</span>{direction.direction}</div>
+          { constant.map(( direction, index ) => (
+            <div key={index} className="direction"><span className="direction-capital">{direction.shorthand}</span>{direction.direction}</div>
           ))}
         </div>
       </div>

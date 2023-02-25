@@ -7,8 +7,8 @@ import './board.css';
 
 const GameBoard = ({ dice }) => {
   const board = [];
-  const [ rowCount, setRowCount ] = useState({henryRow: 8, bottleRow: 2, patchRow: 5});
-  const [ columnCount, setColumnCount ] = useState({henryColumn: 42, bottleColumn: 8, patchColumn: 5});
+  const [ rowCount, setRowCount ] = useState({ henryRow: 10, bottleRow: 15, patchRow: 5 });
+  const [ columnCount, setColumnCount ] = useState({ henryColumn: 10, bottleColumn: 15, patchColumn: 5 });
   const [ prevPlayer, setPrevPlayer ] = useState( 'bottle');
   
   useMemo(() => {
@@ -16,20 +16,41 @@ const GameBoard = ({ dice }) => {
       const currentPlayerRow = prevPlayer === 'bottle' ? 'bottleRow' : 'henryRow';
       const currentPlayerColumn = prevPlayer === 'bottle' ? 'bottleColumn' : 'henryColumn';
       
-      setRowCount( prev => ({
-        ...rowCount,
-        [ currentPlayerRow ]: ( prev[currentPlayerRow] + dice.step ) > 24 ? ( prev[currentPlayerRow] + dice.step - 24 ) : prev[currentPlayerRow] + dice.step
-    }))
-  
-      setColumnCount( prev => ({
-        ...columnCount,
-        [currentPlayerColumn]: ( prev[currentPlayerColumn] + dice.step ) > 42 ? ( prev[currentPlayerColumn] + dice.step -42 ) : prev[currentPlayerColumn] + dice.step
-      }))
+      switch ( dice.route ) {
+        case 'east':
+          return (
+            setRowCount( prev => ({
+              ...rowCount,
+              [ currentPlayerRow ]: ( prev[currentPlayerRow] + dice.step ) > 24 ? ( prev[currentPlayerRow] + dice.step - 24 ) : prev[currentPlayerRow] + dice.step
+            }))
+          )
+        case 'west':
+          return (
+            setRowCount( prev => ({
+              ...rowCount,
+              [ currentPlayerRow ]: ( prev[currentPlayerRow] - dice.step ) > 24 ? ( prev[currentPlayerRow] - dice.step ) - 24  : prev[currentPlayerRow] - dice.step
+            }))
+          )
+        case 'north':
+          return (
+            setColumnCount( prev => ({
+              ...columnCount,
+              [currentPlayerColumn]: ( prev[currentPlayerColumn] - dice.step ) > 42 ? ( prev[currentPlayerColumn] - dice.step ) - 42 : prev[currentPlayerColumn] - dice.step
+            }))
+          )
+        case 'south':
+          return (
+            setColumnCount( prev => ({
+              ...columnCount,
+              [currentPlayerColumn]: ( prev[currentPlayerColumn] + dice.step ) > 42 ? ( prev[currentPlayerColumn] + dice.step ) - 42 : prev[currentPlayerColumn] + dice.step
+            }))
+          )
+      }
   
       prevPlayer === 'bottle' ? setPrevPlayer('henry') : setPrevPlayer('bottle');
     }
     
-  },[dice,columnCount,prevPlayer,rowCount])
+  },[ dice ])
   
   for ( let r = 1; r <= 24; r++ ) {
     const row = [];
@@ -49,7 +70,7 @@ const GameBoard = ({ dice }) => {
         { row }
       </div>
     );
-}
+  }
 
   const columnHeader = [];
   for ( let j = 0; j < 42; j++ ) {

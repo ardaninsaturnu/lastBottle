@@ -15,12 +15,12 @@ function DiceRoller({ dice, setDice }) {
         routes.splice(index, 1);
     }
     
-    setDice({ ...dice, direction: diceDirection, step: diceStep, route: routes });
+    setDice({ ...dice, direction: diceDirection, step: diceStep, route: firstPlayerDirection  });
   }
   
   return (
     <div className="dice-roller">
-      <div className="dice-content"> Direction <div className="dice-content-box">{ dice?.direction }</div><strong>{'North'}</strong></div>
+      <div className="dice-content"> Direction <div className="dice-content-box">{ dice?.direction }</div><strong>{dice.route}</strong></div>
       <div className="dice-content">Steps <div style={{padding:6,border:'2px black solid',width:24,height:24,display:"flex",justifyContent:'center',alignItems:'center'}}>{ dice?.step }</div></div>
       <button onClick={rollDice} className="button button-dice">Zar At</button>
     </div>
