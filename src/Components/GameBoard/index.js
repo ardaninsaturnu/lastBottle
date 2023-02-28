@@ -5,7 +5,7 @@ import Bottle from "../../Elements/Bottle";
 import Gpgp from "../../Elements/Gpgp";
 import './board.css';
 
-const GameBoard = ({ dice }) => {
+const GameBoard = ({ dice, start }) => {
   const board = [];
   const [ rowCount, setRowCount ] = useState({ henry: 10, bottle: 15, patch: 5 });
   const [ columnCount, setColumnCount ] = useState({ henry: 10, bottle: 15, patch: 5 });
@@ -15,13 +15,18 @@ const GameBoard = ({ dice }) => {
     for ( let r = 0; r <= 24; r++ ) {
       const row = [];
       for ( let c = 0; c <= 42; c++ ) {
-        row.push(
-          <Square key={`${r}-${c}`}>
-            { r === rowCount.henry && c === columnCount.henry  ? <Henry/> : null }
-            { r === rowCount.bottle && c === columnCount.bottle ? <Bottle/> : null }
-            { r === rowCount.patch && c === columnCount.patch ? <Gpgp/> : null }
-          </Square>
-        );
+        
+        if( start ) {
+          row.push(
+            <Square key={`${r}-${c}`}>
+              {r === rowCount.henry && c === columnCount.henry ? <Henry/> : null}
+              {r === rowCount.bottle && c === columnCount.bottle ? <Bottle/> : null}
+              {r === rowCount.patch && c === columnCount.patch ? <Gpgp/> : null}
+            </Square>
+          );
+        } else {
+          row.push( <Square key={`${r}-${c}`}></Square> )
+        }
       }
       
       board.push(
