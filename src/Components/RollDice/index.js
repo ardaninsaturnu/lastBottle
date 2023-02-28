@@ -6,7 +6,7 @@ function DiceRoller({ dice, setDice }) {
   function rollDice() {
     const diceDirection = Math.floor(Math.random() * 6) + 1;
     const diceStep = Math.floor(Math.random() * 6) + 1;
-    let routes = [ "north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest" ];
+    let routes = [ "N", "NE", "E", "SE", "S", "SW", "W", "NW" ];
     const firstPlayerDirection = routes[diceDirection];
     const forbiddenDirections = [firstPlayerDirection, oppositeDirections[firstPlayerDirection]];
     
