@@ -1,9 +1,50 @@
-export function removeValue(value, index, arr) {
-  // If the value at the current array index matches the specified value (2)
-  if (value === 2) {
-    // Removes the value from the original array
-    arr.splice(index, 1);
-    return true;
-  }
-  return false;
+export const rollTheDice = () => {
+  const diceDirection = Math.floor(Math.random() * 6) + 1;
+  const diceStep = Math.floor(Math.random() * 6) + 1;
+  
+  return { diceStep, diceDirection }
+}
+
+export const calculateGpgpLocation = () => {
+  const gColumn = Math.floor( Math.random() * 42 );
+  const gRow = Math.floor( Math.random() * 24 );
+  
+  return [
+    {
+      column: gColumn,
+      row: gRow
+    },
+    {
+      column: gColumn - 1,
+      row: gRow
+    },
+    {
+      column: gColumn + 1,
+      row: gRow
+    },
+    {
+      column: gColumn,
+      row: gRow + 1
+    },
+    {
+      column: gColumn,
+      row: gRow - 1
+    },
+    {
+      column: gColumn - 1,
+      row: gRow - 1
+    },
+    {
+      column: gColumn - 1,
+      row: gRow + 1
+    },
+    {
+      column: gColumn + 1,
+      row: gRow + 1
+    },
+    {
+      column: gColumn + 1,
+      row: gRow - 1
+    },
+  ]
 }

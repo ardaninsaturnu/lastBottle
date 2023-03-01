@@ -1,55 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import Square from "../../Elements/Square";
 import Henry from "../../Elements/Henry";
 import Bottle from "../../Elements/Bottle";
 import Gpgp from "../../Elements/Gpgp";
 import './board.css';
 
-const GameBoard = ({ dice, start }) => {
+const GameBoard = ({ dice, start, gpgpLocation, prevPlayer, setPrevPlayer, rowCount, setRowCount, columnCount, setColumnCount, setStart }) => {
   const board = [];
-  const [ rowCount, setRowCount ] = useState({ henry: 10, bottle: 15, patch: 5 });
-  const [ columnCount, setColumnCount ] = useState({ henry: 10, bottle: 15, patch: 5 });
-  const [ prevPlayer, setPrevPlayer ] = useState( 'bottle');
-  
-  const handleRow = () => {
-    for ( let r = 0; r <= 24; r++ ) {
-      const row = [];
-      for ( let c = 0; c <= 42; c++ ) {
-        
-        if( start ) {
-          row.push(
-            <Square key={`${r}-${c}`}>
-              {r === rowCount.henry && c === columnCount.henry ? <Henry/> : null}
-              {r === rowCount.bottle && c === columnCount.bottle ? <Bottle/> : null}
-              {r === rowCount.patch && c === columnCount.patch ? <Gpgp/> : null}
-            </Square>
-          );
-        } else {
-          row.push( <Square key={`${r}-${c}`}></Square> )
-        }
-      }
-      
-      board.push(
-        <div key={ r } className="row">
-          <div className="row-header rowHeader">{`R${ r + 1 }`}</div>
-          { row }
-        </div>
-      );
-    }
-    
-    return board;
-  }
-  
-  const handleColumn = () => {
-    const columnHeader = [];
-    for ( let j = 0; j < 42; j++ ) {
-      columnHeader.push(
-        <div key={`c${j}`} className="column-header columnHeader">{`C${j + 1}`}</div>
-      );
-    }
-    
-    return columnHeader;
-  }
   
   useEffect(() => {
     if( dice.route !== '' ){
@@ -121,15 +78,72 @@ const GameBoard = ({ dice, start }) => {
         default:
           console.error('Invalid route');
       }
-  
-  
+      
       prevPlayer === 'bottle' ? setPrevPlayer('henry') : setPrevPlayer('bottle');
     }
     
     handleRow()
     handleColumn()
-   
+    
   },[ dice ])
+  
+  const handleRow = () => {
+    for ( let r = 1; r <= 24; r++ ) {
+      const row = [];
+      
+      for ( let c = 1; c <= 42; c++ ) {
+        row.push(
+          <Square key={`${r}-${c}`}>
+            { r === (rowCount.henry ?? 1 ) && c === ( columnCount.henry ?? 1 ) ? <Henry/> : null }
+            { r === ( rowCount.bottle ?? 1 ) && c === ( columnCount.bottle ?? 1 ) ? <Bottle/> : null }
+            { gpgpLocation.map ( ( location, index ) => { return r === location.row && c === location.column ? <Gpgp key={index}/> : null }) }
+          </Square>
+        );
+      }
+      
+      board.push(
+        <div key={ r } className="row">
+          <div className="row-header rowHeader">{`R${ r }`}</div>
+          { row }
+        </div>
+      );
+    }
+    
+    return board;
+  }
+  
+  const handleColumn = () => {
+    const columnHeader = [];
+    for ( let j = 1; j <= 42; j++ ) {
+      columnHeader.push(
+        <div key={`c${j}`} className="column-header columnHeader">{`C${j}`}</div>
+      );
+    }
+    
+    return columnHeader;
+  }
+  
+  useEffect(() => {
+    if( dice.route !== '' ){
+      setStart( false )
+      
+      setTimeout( () => {
+        if( prevPlayer === 'bottle' ) {
+          setPrevPlayer('henry');
+          alert('Henry\'s turn')
+          setStart( true )
+        } else {
+          setPrevPlayer('bottle')
+          alert('Bottle turn')
+          setStart( true )
+        }
+      }, 2000 )
+    }
+    
+    handleRow()
+    handleColumn()
+   
+  },[ dice,start ])
   
   console.log( dice,prevPlayer, rowCount, columnCount )
   
