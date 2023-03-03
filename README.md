@@ -12,6 +12,8 @@ pixels, there should be 42 columns and 24 rows.
 - Board is repeating. eg: if reference coordinates are [C42, R5] (east edge of the board) the next cell to the east has coordinates [C1, R5]
 (opposite side of the board)
 
+<img width="1242" alt="image" src="https://user-images.githubusercontent.com/46358038/222630660-3a48125b-7bbe-4afb-81e0-2f990576d561.png">
+
 ## Game setup
 
 - First, the center coordinates of GPgp is selected randomly (eg: [C4, R18])
