@@ -5,46 +5,51 @@ export const rollTheDice = () => {
   return { diceStep, diceDirection }
 }
 
-export const calculateGpgpLocation = () => {
+export const calculateGpgpLocation = ( object ) => {
   const gColumn = Math.floor( Math.random() * 42 );
   const gRow = Math.floor( Math.random() * 24 );
   
-  return [
-    {
-      column: gColumn,
-      row: gRow
-    },
-    {
-      column: gColumn - 1,
-      row: gRow
-    },
-    {
-      column: gColumn + 1,
-      row: gRow
-    },
-    {
-      column: gColumn,
-      row: gRow + 1
-    },
-    {
-      column: gColumn,
-      row: gRow - 1
-    },
-    {
-      column: gColumn - 1,
-      row: gRow - 1
-    },
-    {
-      column: gColumn - 1,
-      row: gRow + 1
-    },
-    {
-      column: gColumn + 1,
-      row: gRow + 1
-    },
-    {
-      column: gColumn + 1,
-      row: gRow - 1
-    },
-  ]
+  
+  if( object === 'gpgp' ) {
+    return [
+      {
+        column: gColumn,
+        row: gRow
+      },
+      {
+        column: gColumn - 1,
+        row: gRow
+      },
+      {
+        column: gColumn + 1,
+        row: gRow
+      },
+      {
+        column: gColumn,
+        row: gRow + 1
+      },
+      {
+        column: gColumn,
+        row: gRow - 1
+      },
+      {
+        column: gColumn - 1,
+        row: gRow - 1
+      },
+      {
+        column: gColumn - 1,
+        row: gRow + 1
+      },
+      {
+        column: gColumn + 1,
+        row: gRow + 1
+      },
+      {
+        column: gColumn + 1,
+        row: gRow - 1
+      },
+    ]
+  }
+  
+    return { column: gColumn, row: gRow }
 }

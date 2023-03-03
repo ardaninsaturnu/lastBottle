@@ -1,13 +1,54 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import Square from "../../Elements/Square";
 import Henry from "../../Elements/Henry";
 import Bottle from "../../Elements/Bottle";
 import Gpgp from "../../Elements/Gpgp";
 import './board.css';
+import {useGameContext} from "../../context/GameContext";
+import {calculateGpgpLocation} from "../../helpers/utility";
 
-const GameBoard = ({ dice, start, gpgpLocation, prevPlayer, setPrevPlayer, rowCount, setRowCount, columnCount, setColumnCount, setStart }) => {
+const GameBoard = () => {
+  const {
+    setGpgpLocation,
+    gpgpLocation,
+    dice,
+    start,
+    prevPlayer,
+    setPrevPlayer,
+    rowCount,
+    setRowCount,
+    columnCount,
+    setColumnCount,
+    setStart
+  } = useGameContext();
   const board = [];
   
+  const setFirstLocation = () => {
+    const gpgp = calculateGpgpLocation('gpgp');
+    const henry = calculateGpgpLocation('henry');
+    const bottle = calculateGpgpLocation('bottle');
+    
+    setGpgpLocation( gpgp );
+    
+    setRowCount(
+      {
+        henry: henry.row,
+        bottle: bottle.row
+      }
+    )
+    
+    setColumnCount(
+      {
+        henry: henry.column,
+        bottle: bottle.column
+      }
+    )
+  }
+  
+  useEffect( () => {
+    setFirstLocation();
+  },[]);
+
   useEffect(() => {
     if( dice.route !== '' ){
       switch(dice.route) {
@@ -81,9 +122,6 @@ const GameBoard = ({ dice, start, gpgpLocation, prevPlayer, setPrevPlayer, rowCo
       
       prevPlayer === 'bottle' ? setPrevPlayer('henry') : setPrevPlayer('bottle');
     }
-    
-    handleRow()
-    handleColumn()
     
   },[ dice ])
   

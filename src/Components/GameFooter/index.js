@@ -1,7 +1,10 @@
 import Legend from "../../Elements/Legend";
 import './gameFooter.css';
+import {useGameContext} from "../../context/GameContext";
 
-const GameFooter = ({ setStart }) => {
+const GameFooter = () => {
+  const { setStart } = useGameContext();
+  
   return (
     <div className="footer">
       <Legend/>
