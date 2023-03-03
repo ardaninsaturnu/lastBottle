@@ -3,9 +3,9 @@ import Square from "../../Elements/Square";
 import Henry from "../../Elements/Henry";
 import Bottle from "../../Elements/Bottle";
 import Gpgp from "../../Elements/Gpgp";
-import './board.css';
 import {useGameContext} from "../../context/GameContext";
-import {calculateGpgpLocation} from "../../helpers/utility";
+import {calculateLocation} from "../../helpers/utility";
+import './board.css';
 
 const GameBoard = () => {
   const {
@@ -24,9 +24,9 @@ const GameBoard = () => {
   const board = [];
   
   const setFirstLocation = () => {
-    const gpgp = calculateGpgpLocation('gpgp');
-    const henry = calculateGpgpLocation('henry');
-    const bottle = calculateGpgpLocation('bottle');
+    const gpgp = calculateLocation('gpgp');
+    const henry = calculateLocation('henry');
+    const bottle = calculateLocation('bottle');
     
     setGpgpLocation( gpgp );
     

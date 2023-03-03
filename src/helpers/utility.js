@@ -5,7 +5,7 @@ export const rollTheDice = () => {
   return { diceStep, diceDirection }
 }
 
-export const calculateGpgpLocation = ( object ) => {
+export const calculateLocation = ( object ) => {
   const gColumn = Math.floor( Math.random() * 42 );
   const gRow = Math.floor( Math.random() * 24 );
   
