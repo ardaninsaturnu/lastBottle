@@ -56,11 +56,11 @@ export const calculateLocation = ( object ) => {
     return { column: gColumn, row: gRow }
 }
 
-export const checkWinner = ( patchLocations, rowCount, columnCount, setStart ) => {
+export const checkWinner = ( patchLocations, rowCount, columnCount, setStart, prevPlayer ) => {
   const checkBottle = patchLocations.some( patch => patch.column === columnCount.bottle ) && patchLocations.some( patch => patch.row === rowCount.bottle );
   const checkHenry = patchLocations.some( patch => patch.column === columnCount.henry ) && patchLocations.some( patch => patch.row === rowCount.henry );
   const henryAndBottle = rowCount.henry !== null && rowCount.bottle !== null && columnCount.bottle === columnCount.henry && rowCount.bottle === rowCount.henry;
- 
+  
   if( checkBottle ) {
     alert( 'bottle has won.' );
     setStart( false );
@@ -68,6 +68,20 @@ export const checkWinner = ( patchLocations, rowCount, columnCount, setStart ) =
   } else if ( checkHenry || henryAndBottle ) {
     alert( 'Henry saved the world.' );
     setStart( false );
+    return true;
+  }
+  
+  return false;
+}
+
+export const checkFirstLocation = ( patchLocations, rowCount, columnCount ) => {
+  const checkBottle = patchLocations?.some( patch => patch.column === columnCount.bottle ) && patchLocations?.some( patch => patch.row === rowCount.bottle );
+  const checkHenry = patchLocations.some( patch => patch.column === columnCount.henry ) && patchLocations.some( patch => patch.row === rowCount.henry );
+  const henryAndBottle = rowCount.henry !== null && rowCount.bottle !== null && columnCount.bottle === columnCount.henry && rowCount.bottle === rowCount.henry;
+  
+  if( checkBottle ) {
+    return true;
+  } else if ( checkHenry || henryAndBottle ) {
     return true;
   }
   

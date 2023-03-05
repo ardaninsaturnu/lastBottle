@@ -1,5 +1,5 @@
 import { useGameContext } from '../context/GameContext';
-import { calculateLocation } from '../helpers/utility';
+import {calculateLocation, checkWinner} from '../helpers/utility';
 
 const useLocation = () => {
   const { setGpgpLocation, setRowCount, setColumnCount } = useGameContext();

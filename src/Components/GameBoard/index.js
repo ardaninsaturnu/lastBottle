@@ -5,7 +5,7 @@ import Bottle from "../../Elements/Bottle";
 import Gpgp from "../../Elements/Gpgp";
 import { useGameContext } from "../../context/GameContext";
 import useLocation from "../../hooks/useLocation";
-import {checkWinner, rollTheDice} from "../../helpers/utility";
+import {checkFirstLocation, checkWinner, rollTheDice} from "../../helpers/utility";
 import useDice from "../../hooks/useDice";
 import './board.css';
 
@@ -31,6 +31,13 @@ const GameBoard = () => {
     setLocation()
     randomPatchLocation()
   },[]);
+  
+  useEffect( () => {
+      if(checkFirstLocation( gpgpLocation, rowCount, columnCount )) {
+        window.location.reload()
+      }
+      }
+    , [setLocation, randomPatchLocation] )
 
   useEffect(() => {
     if( dice.route !== '' ){
@@ -174,7 +181,6 @@ const GameBoard = () => {
     if( dice.route !== '' ){
       checkWinner( gpgpLocation, rowCount, columnCount, setStart );
     }
-    console.log( checkWinner( gpgpLocation, rowCount, columnCount, setStart ) )
   }, [ dice, start, rowCount, columnCount ] );
   
   return (
