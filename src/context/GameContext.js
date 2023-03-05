@@ -8,7 +8,7 @@ const GameContextProvider = ({ children }) => {
   const [ rowCount, setRowCount ] = useState({ henry: null, bottle: null });
   const [ columnCount, setColumnCount ] = useState({ henry: null, bottle: null });
   const [ gpgpLocation, setGpgpLocation ] = useState( [] );
-  const [ prevPlayer, setPrevPlayer ] = useState( 'bottle' );
+  const [ player, setPlayer ] = useState( { prev: 'henry', current: 'bottle' });
   
   const contextValues = {
     dice,
@@ -19,8 +19,8 @@ const GameContextProvider = ({ children }) => {
     setRowCount,
     columnCount,
     setColumnCount,
-    prevPlayer,
-    setPrevPlayer,
+    player,
+    setPlayer,
     gpgpLocation,
     setGpgpLocation
   };

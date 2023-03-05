@@ -9,7 +9,6 @@ export const calculateLocation = ( object ) => {
   const gColumn = Math.floor( Math.random() * 42 );
   const gRow = Math.floor( Math.random() * 24 );
   
-  
   if( object === 'gpgp' ) {
     return [
       {
