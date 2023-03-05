@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+##### Mehmet Arda Çelik
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Case for CirPlus
 
-## Available Scripts
+This project creating for job interview case. Project is consist of a game board and features around this board. Our main purpose is handle states and requests with CirPlus Doc.
 
-In the project directory, you can run:
+## Board
 
-### `npm start`
+- Board is similar to a chessboard. Cell size is 30x30 pixels. eg: if the board area (browser screen size minus controls, labels etc.) is 1280x720
+pixels, there should be 42 columns and 24 rows.
+- Coordinates of a game element are mentioned as [Cn, Rn] (C: column, R: Row)
+- Board is repeating. eg: if reference coordinates are [C42, R5] (east edge of the board) the next cell to the east has coordinates [C1, R5]
+(opposite side of the board)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<img width="1242" alt="image" src="https://user-images.githubusercontent.com/46358038/222630660-3a48125b-7bbe-4afb-81e0-2f990576d561.png">
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Game setup
 
-### `npm test`
+- First, the center coordinates of GPgp is selected randomly (eg: [C4, R18])
+- GPgp area is calculated by adding one cell to the center coordinates in each direction.
+- GPgp area should be colored in red
+- Then starting cell coordinate is selected randomly (eg: [C31, R4])
+- Starting cell should be colored blue
+- Starting cell can not be inside GPgp zone
+- Dice 1: determines the direction
+- Dice 2: determines the moves
+- The cell which PB is in should be colored in black
+- The cell which Henry is in should be colored in yellow
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Game play:
+- There are 2 players: Henry (you) and the PB (computer)
+- Each player rolls 2 dice and moves accordingly.
+- To win the game, Henry should either reach to GPgp zone before the PB or catch the PB.
+- PB starts the game.
 
-### `npm run build`
+## Tech
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+used required techs as Upayments wants :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- ReactJS
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation
 
-### `npm run eject`
+Clone project your local
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```sh
+git clone git@github.com:ardaninsaturnu/lastBottle.git
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Install the dependencies and devDependencies and start the npm.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```sh
+npm install
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## View
 
-## Learn More
+to view project last version click this
+url : https://last-bottle-tvqk-gz03dtaj4-ardaninsaturnu.vercel.app/
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Commits Explanation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- :rainbow:  for style
+- :microbe:  for bug fixies
+- :dna:  for merging
+- :fairy:  for new features
