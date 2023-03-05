@@ -38,7 +38,6 @@ pixels, there should be 42 columns and 24 rows.
 used required techs as Upayments wants :
 
 - ReactJS
-- xState *
 
 ## Installation
 
