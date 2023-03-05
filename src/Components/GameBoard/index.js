@@ -4,10 +4,10 @@ import Henry from "../../Elements/Henry";
 import Bottle from "../../Elements/Bottle";
 import Gpgp from "../../Elements/Gpgp";
 import { useGameContext } from "../../context/GameContext";
-import './board.css';
 import useLocation from "../../hooks/useLocation";
-import {rollTheDice} from "../../helpers/utility";
+import {checkWinner, rollTheDice} from "../../helpers/utility";
 import useDice from "../../hooks/useDice";
+import './board.css';
 
 const GameBoard = () => {
   const {
@@ -168,7 +168,15 @@ const GameBoard = () => {
         rollTheDice();
     }
   },[player])
-  debugger
+  
+  
+  useEffect( () => {
+    if( dice.route !== '' ){
+      checkWinner( gpgpLocation, rowCount, columnCount, setStart );
+    }
+    console.log( checkWinner( gpgpLocation, rowCount, columnCount, setStart ) )
+  }, [ dice, start, rowCount, columnCount ] );
+  
   return (
     <div className="board">
       <div className="column-header columnHeader"/>

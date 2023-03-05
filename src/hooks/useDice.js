@@ -2,7 +2,7 @@ import {oppositeDirections} from "../helpers/constant";
 import {useGameContext} from "../context/GameContext";
 
 function useDice() {
-  const {dice, setDice} = useGameContext()
+  const {dice, setDice} = useGameContext();
   
   function rollDice(diceDirection, diceStep) {
     let routes = [ "N", "NE", "E", "SE", "S", "SW", "W", "NW" ];

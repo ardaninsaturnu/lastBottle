@@ -6,8 +6,11 @@ export const rollTheDice = () => {
 }
 
 export const calculateLocation = ( object ) => {
-  const gColumn = Math.floor( Math.random() * 42 );
-  const gRow = Math.floor( Math.random() * 24 );
+  const min = ( object === 'gpgp' ? 2 : 1 );
+  const maxCol = ( object === 'gpgp' ? 41 : 42 );
+  const maxRow = ( object === 'gpgp' ? 23 : 24 );
+  const gColumn = Math.floor(Math.random() * (maxCol - min + 1)) + min;
+  const gRow = Math.floor(Math.random() * (maxRow - min + 1)) + min;
   
   if( object === 'gpgp' ) {
     return [
@@ -52,3 +55,22 @@ export const calculateLocation = ( object ) => {
   
     return { column: gColumn, row: gRow }
 }
+
+export const checkWinner = ( patchLocations, rowCount, columnCount, setStart ) => {
+  const checkBottle = patchLocations.some( patch => patch.column === columnCount.bottle ) && patchLocations.some( patch => patch.row === rowCount.bottle );
+  const checkHenry = patchLocations.some( patch => patch.column === columnCount.henry ) && patchLocations.some( patch => patch.row === rowCount.henry );
+  const henryAndBottle = rowCount.henry !== null && rowCount.bottle !== null && columnCount.bottle === columnCount.henry && rowCount.bottle === rowCount.henry;
+ 
+  if( checkBottle ) {
+    alert( 'bottle has won.' );
+    setStart( false );
+    return true;
+  } else if ( checkHenry || henryAndBottle ) {
+    alert( 'Henry saved the world.' );
+    setStart( false );
+    return true;
+  }
+  
+  return false;
+}
+
