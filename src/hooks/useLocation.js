@@ -8,6 +8,7 @@ const useLocation = () => {
     const gpgp = calculateLocation('gpgp');
   
     setGpgpLocation(gpgp);
+    return gpgp;
   }
   
   const setLocation = () => {

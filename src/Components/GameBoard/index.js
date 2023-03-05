@@ -7,6 +7,7 @@ import { useGameContext } from "../../context/GameContext";
 import './board.css';
 import useLocation from "../../hooks/useLocation";
 import {rollTheDice} from "../../helpers/utility";
+import useDice from "../../hooks/useDice";
 
 const GameBoard = () => {
   const {
@@ -23,6 +24,8 @@ const GameBoard = () => {
   } = useGameContext();
   const board = [];
   const [ setLocation, randomPatchLocation ] = useLocation();
+  const { diceDirection, diceStep } = rollTheDice();
+  const { rollDice } = useDice();
   
   useEffect( () => {
     setLocation()
@@ -35,19 +38,19 @@ const GameBoard = () => {
         case 'N':
           setRowCount( prev => ({
             ...rowCount,
-            [ player.prev ]: (( prev[ player.prev ] + dice.step ) % 24 ) === 0 ?  (( prev[ player.prev ] + dice.step ) % 24) + 1 : ( prev[ player.prev ] + dice.step ) % 24
+            [ player.prev ]: (( prev[ player.prev ] + dice.step ) % 24 ) === 1 ?  (( prev[ player.prev ] + dice.step ) % 24) + 1 : ( prev[ player.prev ] + dice.step ) % 24
           }));
           break;
         case 'S':
           setColumnCount( prev => ({
             ...columnCount,
-            [ player.prev  ]: ((prev[ player.prev  ] + dice.step) % 42 ) === 0 ? ((prev[ player.prev  ] + dice.step) % 42 ) + 1 : ((prev[ player.prev ] + dice.step) % 42 )
+            [ player.prev  ]: ((prev[ player.prev  ] + dice.step) % 42 ) === 1 ? ((prev[ player.prev  ] + dice.step) % 42 ) + 1 : ((prev[ player.prev ] + dice.step) % 42 )
           }));
           break;
         case 'W':
           setColumnCount( prev => ({
             ...columnCount,
-            [ player.prev  ]: ( prev[ player.prev  ] - dice.step ) < 0 ? 42 + ( prev[ player.prev  ] - dice.step ) : ( prev[ player.prev  ] - dice.step )
+            [ player.prev  ]: ( prev[ player.prev  ] - dice.step ) < 1 ? 42 + ( prev[ player.prev  ] - dice.step ) : ( prev[ player.prev  ] - dice.step )
           }));
           break;
         case 'E':
@@ -59,11 +62,11 @@ const GameBoard = () => {
         case 'NW':
           setRowCount(prev => ({
             ...rowCount,
-            [ player.prev  ]: ( prev[ player.prev ] - dice.step ) < 0 ? 24 + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+            [ player.prev  ]: ( prev[ player.prev ] - dice.step ) < 1 ? 24 + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
           }));
           setColumnCount( prev => ({
             ...columnCount,
-            [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 0 ? 42 + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+            [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 1 ? 42 + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
           }));
           break;
         case 'SE':
@@ -89,7 +92,7 @@ const GameBoard = () => {
         case 'NE':
           setRowCount(prev => ({
             ...rowCount,
-            [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 0 ? 24 + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+            [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 1 ? 24 + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
           }));
           setColumnCount( prev => ({
             ...columnCount,
@@ -111,8 +114,8 @@ const GameBoard = () => {
       for ( let c = 1; c <= 42; c++ ) {
         row.push(
           <Square key={`${r}-${c}`}>
-            { r === (rowCount.henry ?? 1 ) && c === ( columnCount.henry ?? 1 ) ? <Henry/> : null }
-            { r === ( rowCount.bottle ?? 1 ) && c === ( columnCount.bottle ?? 1 ) ? <Bottle/> : null }
+            { r === (rowCount.henry ) && c === ( columnCount.henry ) ? <Henry/> : null }
+            { r === ( rowCount.bottle ) && c === ( columnCount.bottle ) ? <Bottle/> : null }
             { gpgpLocation.map ( ( location, index ) => { return r === location.row && c === location.column ? <Gpgp key={index}/> : null }) }
           </Square>
         );
@@ -151,6 +154,7 @@ const GameBoard = () => {
           setPlayer({ prev:'bottle' ,current:'henry' });
           alert('Bottle turn')
           setStart( true )
+          rollDice( diceDirection, diceStep );
         }
       }, 1000 )
     }
@@ -164,7 +168,7 @@ const GameBoard = () => {
         rollTheDice();
     }
   },[player])
-  
+  debugger
   return (
     <div className="board">
       <div className="column-header columnHeader"/>

@@ -1,10 +1,14 @@
+import {useGameContext} from "../context/GameContext";
+
 const Henry = () => {
+  const { start } = useGameContext();
+  
   const styles = {
     element: {
       width: '30px',
       height: '30px',
       backgroundColor: 'orange',
-      display: 'flex',
+      display: start ? 'flex' : 'none',
       justifyContent: 'center',
       alignItems: 'center',
     }

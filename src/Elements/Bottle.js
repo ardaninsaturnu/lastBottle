@@ -1,12 +1,16 @@
+import {useGameContext} from "../context/GameContext";
+
 const Bottle = () => {
+  const {start} = useGameContext();
+  
   const styles = {
     element: {
       width: '30px',
       height: '30px',
       backgroundColor: 'crimson',
-      display: 'flex',
+      display: start ? 'flex' : 'none',
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
     }
   }
   
