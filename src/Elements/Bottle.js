@@ -1,4 +1,5 @@
 import {useGameContext} from "../context/GameContext";
+import bottle from '../assets/img/bottle_icon@2x.png';
 
 const Bottle = () => {
   const {start} = useGameContext();
@@ -14,7 +15,7 @@ const Bottle = () => {
     }
   }
   
-  return <div style={styles.element}>B</div>;
+  return <div style={styles.element}><img src={bottle} alt="bottle player icon" width={25}/></div>;
 };
 
 export default Bottle;

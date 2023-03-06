@@ -1,4 +1,5 @@
 import {useGameContext} from "../context/GameContext";
+import user from "../assets/img/player_icon.svg";
 
 const Henry = () => {
   const { start } = useGameContext();
@@ -14,7 +15,7 @@ const Henry = () => {
     }
   }
   
-  return <div style={styles.element}>H</div>;
+  return <div style={styles.element}><img src={user} alt="user player icon" width={25}/></div>;
 };
 
 export default Henry;
