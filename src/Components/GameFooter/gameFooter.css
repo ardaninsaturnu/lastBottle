@@ -46,3 +46,20 @@
 .direction .direction-capital {
     font-weight: bold;
 }
+
+@media screen and ( max-width: 1028px  ) {
+    .legend-wrapper {
+        flex-direction: column;
+    }
+
+    .legend-direction-wrapper {
+        display: block;
+    }
+
+    .direction {
+        display: flex;
+        margin-bottom: 5px;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+    }
+}
