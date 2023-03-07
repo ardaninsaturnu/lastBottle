@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import Square from "../../Elements/Square";
 import Henry from "../../Elements/Henry";
 import Bottle from "../../Elements/Bottle";
@@ -26,6 +26,10 @@ const GameBoard = () => {
   const [ setLocation, randomPatchLocation ] = useLocation();
   const { diceDirection, diceStep } = rollTheDice();
   const { rollDice } = useDice();
+  const boardRef = useRef();
+  const [numCols, setNumCols] = useState(Math.floor(((window.innerWidth * 80) / 100)/ 30 ) );
+  const [numRows, setNumRows] = useState(Math.floor(window.innerHeight / 30));
+  const [browserSize, setBrowserSize] = useState({ width: numCols, height: numRows });
   
   useEffect( () => {
     setLocation()
@@ -45,65 +49,65 @@ const GameBoard = () => {
         case 'N':
           setRowCount( prev => ({
             ...rowCount,
-            [ player.prev ]: (( prev[ player.prev ] + dice.step ) % 24 ) === 1 ?  (( prev[ player.prev ] + dice.step ) % 24) + 1 : ( prev[ player.prev ] + dice.step ) % 24
+            [ player.prev ]: (( prev[ player.prev ] + dice.step ) % browserSize.height ) === 1 ?  (( prev[ player.prev ] + dice.step ) % browserSize.height ) + 1 : ( prev[ player.prev ] + dice.step ) % browserSize.height
           }));
           break;
         case 'S':
           setColumnCount( prev => ({
             ...columnCount,
-            [ player.prev  ]: ((prev[ player.prev  ] + dice.step) % 42 ) === 1 ? ((prev[ player.prev  ] + dice.step) % 42 ) + 1 : ((prev[ player.prev ] + dice.step) % 42 )
+            [ player.prev  ]: ((prev[ player.prev  ] + dice.step) % browserSize.width ) === 1 ? ((prev[ player.prev  ] + dice.step) % browserSize.width ) + 1 : ((prev[ player.prev ] + dice.step) % browserSize.width )
           }));
           break;
         case 'W':
           setColumnCount( prev => ({
             ...columnCount,
-            [ player.prev  ]: ( prev[ player.prev  ] - dice.step ) < 1 ? 42 + ( prev[ player.prev  ] - dice.step ) : ( prev[ player.prev  ] - dice.step )
+            [ player.prev  ]: ( prev[ player.prev  ] - dice.step ) < 1 ? browserSize.width + ( prev[ player.prev  ] - dice.step ) : ( prev[ player.prev  ] - dice.step )
           }));
           break;
         case 'E':
           setColumnCount( prev => ({
             ...columnCount,
-            [ player.prev  ]: ( prev[ player.prev  ] + dice.step ) > 42 ? ( prev[ player.prev  ] + dice.step ) - 42 : ( prev[ player.prev  ] + dice.step )
+            [ player.prev  ]: ( prev[ player.prev  ] + dice.step ) > browserSize.width ? ( prev[ player.prev  ] + dice.step ) - browserSize.width : ( prev[ player.prev  ] + dice.step )
           }));
           break;
         case 'NW':
           setRowCount(prev => ({
             ...rowCount,
-            [ player.prev  ]: ( prev[ player.prev ] - dice.step ) < 1 ? 24 + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+            [ player.prev  ]: ( prev[ player.prev ] - dice.step ) < 1 ? browserSize.height + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
           }));
           setColumnCount( prev => ({
             ...columnCount,
-            [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 1 ? 42 + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+            [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 1 ? browserSize.width + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
           }));
           break;
         case 'SE':
           setRowCount(prev => ({
             ...rowCount,
-            [ player.prev ]: ( prev[ player.prev ] + dice.step ) > 24 ? ( prev[ player.prev ] + dice.step ) - 24 : ( prev[ player.prev ] + dice.step )
+            [ player.prev ]: ( prev[ player.prev ] + dice.step ) > browserSize.height ? ( prev[ player.prev ] + dice.step ) - browserSize.height : ( prev[ player.prev ] + dice.step )
           }));
           setColumnCount( prev => ({
             ...columnCount,
-            [ player.prev ]: ( prev[ player.prev ] + dice.step ) > 42 ? ( prev[ player.prev ] + dice.step ) - 42 : ( prev[ player.prev ] + dice.step )
+            [ player.prev ]: ( prev[ player.prev ] + dice.step ) > browserSize.width ? ( prev[ player.prev ] + dice.step ) - browserSize.width : ( prev[ player.prev ] + dice.step )
           }));
           break;
         case 'SW':
           setRowCount(prev => ({
             ...rowCount,
-            [ player.prev ]: ( prev[ player.prev ] + dice.step ) > 24 ? ( prev[ player.prev ] + dice.step ) - 24 : ( prev[ player.prev ] + dice.step )
+            [ player.prev ]: ( prev[ player.prev ] + dice.step ) > browserSize.height ? ( prev[ player.prev ] + dice.step ) - browserSize.height : ( prev[ player.prev ] + dice.step )
           }));
           setColumnCount( prev => ({
             ...columnCount,
-            [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 0 ? 42 + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+            [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 0 ? browserSize.width + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
           }));
           break;
         case 'NE':
           setRowCount(prev => ({
             ...rowCount,
-            [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 1 ? 24 + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+            [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 1 ? browserSize.height + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
           }));
           setColumnCount( prev => ({
             ...columnCount,
-            [ player.prev ]: ( prev[ player.prev ] + dice.step ) > 42 ? ( prev[ player.prev ] + dice.step ) - 42 : ( prev[ player.prev ] + dice.step )
+            [ player.prev ]: ( prev[ player.prev ] + dice.step ) > browserSize.width ? ( prev[ player.prev ] + dice.step ) - browserSize.width : ( prev[ player.prev ] + dice.step )
           }));
           break;
         default:
@@ -115,10 +119,10 @@ const GameBoard = () => {
   },[ dice ]);
   
   const handleRow = () => {
-    for ( let r = 1; r <= 24; r++ ) {
+    for ( let r = 1; r <= browserSize.height; r++ ) {
       const row = [];
       
-      for ( let c = 1; c <= 42; c++ ) {
+      for ( let c = 1; c <= browserSize.width; c++ ) {
         row.push(
           <Square key={`${r}-${c}`}>
             { r === (rowCount.henry ) && c === ( columnCount.henry ) ? <Henry/> : null }
@@ -141,7 +145,7 @@ const GameBoard = () => {
   
   const handleColumn = () => {
     const columnHeader = [];
-    for ( let j = 1; j <= 42; j++ ) {
+    for ( let j = 1; j <= browserSize.width; j++ ) {
       columnHeader.push(
         <div key={`c${j}`} className="column-header columnHeader">{`C${j}`}</div>
       );
@@ -184,7 +188,7 @@ const GameBoard = () => {
   }, [ dice, start, rowCount, columnCount ] );
   
   return (
-    <div className="board">
+    <div className="board" ref={boardRef}>
       <div className="column-header columnHeader"/>
       {handleColumn()}
       {handleRow()}

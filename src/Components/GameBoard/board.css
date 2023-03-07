@@ -3,7 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     box-sizing: border-box;
-    width: min-content;
+    width: 90%;
     height: auto;
     margin: 0 auto;
 }
