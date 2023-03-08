@@ -1,19 +1,21 @@
 import { useGameContext } from '../context/GameContext';
-import {calculateLocation, checkWinner} from '../helpers/utility';
+import { calculateLocation } from '../helpers/utility';
 
 const useLocation = () => {
   const { setGpgpLocation, setRowCount, setColumnCount } = useGameContext();
+  const numCols = Math.floor(((window.innerWidth * 80) / 100)/ 30 );
+  const numRows = Math.floor(window.innerHeight / 30);
   
   const randomPatchLocation = () => {
-    const gpgp = calculateLocation('gpgp');
+    const gpgp = calculateLocation('gpgp', numCols, numRows );
   
     setGpgpLocation(gpgp);
     return gpgp;
   }
   
   const setLocation = () => {
-    const henry = calculateLocation('henry');
-    const bottle = calculateLocation('bottle');
+    const henry = calculateLocation('henry', numCols, numRows );
+    const bottle = calculateLocation('bottle', numCols, numRows );
     
     setRowCount({
       henry: henry.row,
@@ -26,7 +28,7 @@ const useLocation = () => {
     });
   }
   
-  return [setLocation, randomPatchLocation];
+  return [ setLocation, randomPatchLocation, numCols, numRows ];
 };
 
 export default useLocation;

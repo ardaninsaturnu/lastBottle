@@ -5,55 +5,55 @@ export const rollTheDice = () => {
   return { diceStep, diceDirection }
 }
 
-export const calculateLocation = ( object ) => {
+export const calculateLocation = ( object, cols, rows ) => {
   const min = ( object === 'gpgp' ? 2 : 1 );
-  const maxCol = ( object === 'gpgp' ? 41 : 42 );
-  const maxRow = ( object === 'gpgp' ? 23 : 24 );
-  const gColumn = Math.floor(Math.random() * (maxCol - min + 1)) + min;
-  const gRow = Math.floor(Math.random() * (maxRow - min + 1)) + min;
+  const maxCol = ( object === 'gpgp' ? ( cols - 1 ) : cols );
+  const maxRow = ( object === 'gpgp' ? ( rows - 1 ) : rows );
+  const patchColumn = Math.floor(Math.random() * (maxCol - min + 1)) + min;
+  const patchRow = Math.floor(Math.random() * (maxRow - min + 1)) + min;
   
   if( object === 'gpgp' ) {
     return [
       {
-        column: gColumn,
-        row: gRow
+        column: patchColumn,
+        row: patchRow
       },
       {
-        column: gColumn - 1,
-        row: gRow
+        column: patchColumn - 1,
+        row: patchRow
       },
       {
-        column: gColumn + 1,
-        row: gRow
+        column: patchColumn + 1,
+        row: patchRow
       },
       {
-        column: gColumn,
-        row: gRow + 1
+        column: patchColumn,
+        row: patchRow + 1
       },
       {
-        column: gColumn,
-        row: gRow - 1
+        column: patchColumn,
+        row: patchRow - 1
       },
       {
-        column: gColumn - 1,
-        row: gRow - 1
+        column: patchColumn - 1,
+        row: patchRow - 1
       },
       {
-        column: gColumn - 1,
-        row: gRow + 1
+        column: patchColumn - 1,
+        row: patchRow + 1
       },
       {
-        column: gColumn + 1,
-        row: gRow + 1
+        column: patchColumn + 1,
+        row: patchRow + 1
       },
       {
-        column: gColumn + 1,
-        row: gRow - 1
+        column: patchColumn + 1,
+        row: patchRow - 1
       },
     ]
   }
   
-    return { column: gColumn, row: gRow }
+    return { column: patchColumn, row: patchRow }
 }
 
 export const checkWinner = ( patchLocations, rowCount, columnCount, setStart, prevPlayer ) => {
@@ -86,5 +86,77 @@ export const checkFirstLocation = ( patchLocations, rowCount, columnCount ) => {
   }
   
   return false;
+}
+
+export const updatePlayerPosition = ( dice, rowCount, setRowCount, columnCount, setColumnCount, player, browserSize ) => {
+  
+  switch(dice.route) {
+    case 'N':
+      setRowCount( prev => ({
+        ...rowCount,
+        [ player.prev ]: (( prev[ player.prev ] + dice.step ) % browserSize.height ) === 1 ?  (( prev[ player.prev ] + dice.step ) % browserSize.height ) + 1 : ( prev[ player.prev ] + dice.step ) % browserSize.height
+      }));
+      break;
+    case 'S':
+      setColumnCount( prev => ({
+        ...columnCount,
+        [ player.prev  ]: ((prev[ player.prev  ] + dice.step) % browserSize.width ) === 1 ? ((prev[ player.prev  ] + dice.step) % browserSize.width ) + 1 : ((prev[ player.prev ] + dice.step) % browserSize.width )
+      }));
+      break;
+    case 'W':
+      setColumnCount( prev => ({
+        ...columnCount,
+        [ player.prev  ]: ( prev[ player.prev  ] - dice.step ) < 1 ? browserSize.width + ( prev[ player.prev  ] - dice.step ) : ( prev[ player.prev  ] - dice.step )
+      }));
+      break;
+    case 'E':
+      setColumnCount( prev => ({
+        ...columnCount,
+        [ player.prev  ]: ( prev[ player.prev  ] + dice.step ) > browserSize.width ? ( prev[ player.prev  ] + dice.step ) - browserSize.width : ( prev[ player.prev  ] + dice.step )
+      }));
+      break;
+    case 'NW':
+      setRowCount(prev => ({
+        ...rowCount,
+        [ player.prev  ]: ( prev[ player.prev ] - dice.step ) < 1 ? browserSize.height + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+      }));
+      setColumnCount( prev => ({
+        ...columnCount,
+        [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 1 ? browserSize.width + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+      }));
+      break;
+    case 'SE':
+      setRowCount(prev => ({
+        ...rowCount,
+        [ player.prev ]: ( prev[ player.prev ] + dice.step ) > browserSize.height ? ( prev[ player.prev ] + dice.step ) - browserSize.height : ( prev[ player.prev ] + dice.step )
+      }));
+      setColumnCount( prev => ({
+        ...columnCount,
+        [ player.prev ]: ( prev[ player.prev ] + dice.step ) > browserSize.width ? ( prev[ player.prev ] + dice.step ) - browserSize.width : ( prev[ player.prev ] + dice.step )
+      }));
+      break;
+    case 'SW':
+      setRowCount(prev => ({
+        ...rowCount,
+        [ player.prev ]: ( prev[ player.prev ] + dice.step ) > browserSize.height ? ( prev[ player.prev ] + dice.step ) - browserSize.height : ( prev[ player.prev ] + dice.step )
+      }));
+      setColumnCount( prev => ({
+        ...columnCount,
+        [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 0 ? browserSize.width + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+      }));
+      break;
+    case 'NE':
+      setRowCount(prev => ({
+        ...rowCount,
+        [ player.prev ]: ( prev[ player.prev ] - dice.step ) < 1 ? browserSize.height + ( prev[ player.prev ] - dice.step ) : ( prev[ player.prev ] - dice.step )
+      }));
+      setColumnCount( prev => ({
+        ...columnCount,
+        [ player.prev ]: ( prev[ player.prev ] + dice.step ) > browserSize.width ? ( prev[ player.prev ] + dice.step ) - browserSize.width : ( prev[ player.prev ] + dice.step )
+      }));
+      break;
+    default:
+      console.error('Invalid route');
+  }
 }
 

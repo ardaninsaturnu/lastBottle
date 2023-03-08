@@ -8,7 +8,7 @@ const Bottle = () => {
     element: {
       width: '30px',
       height: '30px',
-      backgroundColor: 'crimson',
+      backgroundColor: 'orange',
       display: start ? 'flex' : 'none',
       justifyContent: 'center',
       alignItems: 'center'
