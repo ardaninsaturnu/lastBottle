@@ -61,7 +61,7 @@ url : https://last-bottle-tvqk-gz03dtaj4-ardaninsaturnu.vercel.app/
 
 ### Commits Explanation
 
-- :rainbow:  for style
-- :microbe:  for bug fixies
-- :dna:  for merging
-- :fairy:  for new features
+- :rainbow: rainbow: for style
+- :microbe: microbe: for bug fixies
+- :dna: dna: for merging
+- :tada: tada: for new features
